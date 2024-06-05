@@ -1,0 +1,1532 @@
+[
+    {
+        "id": "8425d87446e84e39",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "73872d4107f5983f",
+        "type": "inject",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "START",
+        "payloadType": "str",
+        "x": 140,
+        "y": 940,
+        "wires": [
+            [
+                "409fc108780b6357",
+                "606fd7abe02fa7ad"
+            ]
+        ]
+    },
+    {
+        "id": "409fc108780b6357",
+        "type": "function",
+        "z": "8425d87446e84e39",
+        "name": "function 1",
+        "func": "setInterval(function () {\n\n    var data = new Date();\n    var horas = data.getHours();\n    var minuto = data.getMinutes();\n    var dias = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];\n    var dia = dias[data.getDay()];\n    var diasemana = data.getDate();\n    var meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];\n    var mes = meses[data.getMonth()];\n\n    var horaminuto = horas.toString().padStart(2, '0') + ':' + minuto.toString().padStart(2, '0');\n    var dataextenso = dia + ' ' + diasemana + ' de ' + mes;\n\n    node.send([{ payload_data: dataextenso, payload_hora: horaminuto }])\n\n}, 1000);",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 940,
+        "wires": [
+            [
+                "e0d6439db4bf8a13"
+            ]
+        ]
+    },
+    {
+        "id": "e0d6439db4bf8a13",
+        "type": "ui_template",
+        "z": "8425d87446e84e39",
+        "group": "064a77c322a84d3f",
+        "name": "RELOGIO",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    .total01 {\n        display: flex;\n        justify-content: center;\n        aling-intens: center;\n        flex-direction: column;\n        text-align: center;\n        margin: auto;\n        background-color: #00000060;\n        border: 1px solid #8C8C8C;\n        border-radius: 20px;\n        width: 90%;\n        min-height: 60%;\n    }\n\n    .texto-data01 {\n        display: flex;\n        margin: auto;\n        color: #000000;\n        font-size: 12px;\n    }\n\n    .texto-hora01 {\n        display: flex;\n        margin: auto;\n        color: #000000;\n        font-size: 50px;\n    }\n</style>\n\n<div class=\"total01\">\n    <br>\n    <div class=\"texto-data01\">\n        {{msg.payload_data}}\n    </div>\n    <div class=\"texto-hora01\">\n        {{msg.payload_hora}}\n    </div>\n    <br>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 690,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6ea32e7218faba74",
+        "type": "ui_button",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "group": "064a77c322a84d3f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ON",
+        "tooltip": "",
+        "color": "BLACK",
+        "bgcolor": "WHITE",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 720,
+        "wires": [
+            [
+                "36f6b7441b14eb71"
+            ]
+        ]
+    },
+    {
+        "id": "e878df2b771fa247",
+        "type": "ui_button",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "group": "064a77c322a84d3f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "OFF",
+        "tooltip": "",
+        "color": "BLACK",
+        "bgcolor": "WHITE",
+        "className": "",
+        "icon": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 780,
+        "wires": [
+            [
+                "bd0ee974f195f59a"
+            ]
+        ]
+    },
+    {
+        "id": "36f6b7441b14eb71",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "13",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 420,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "bd0ee974f195f59a",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "13",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 420,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "606fd7abe02fa7ad",
+        "type": "ui_template",
+        "z": "8425d87446e84e39",
+        "group": "064a77c322a84d3f",
+        "name": "TIMER",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "format": "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Document</title>\n\n    <script>\n\n        function senai() {\n\n        var inicio = document.Form1.Ftimei.value;\n        var fim = document.Form1.Ftimef.value;\n        \n    \n        alert(\"Hora de Início: \" + inicio + \"\\nHora de Fim: \" + fim);\n        \n        return false;\n    }\n\n    </script>\n\n</head>\n\n<body background=\"Img/back.png\">\n\n    <br><br>\n    <font face='arial' size='6'>\n        <center>\n\n            <font size=\"6\"><b> HORARIO DE <br> FUNCIONAMENTO </b> </font>\n        </center>\n\n        <br>\n\n        <form name=\"Form1\" action=\"\" method=\"post\" onsubmit=\"return senai()\">\n\n            <center>\n                <font size=\"4\"><b>\n        INICIO:\n        </b></font>\n                <font size=\"4\" color=\"black\"><b>\n                <input type=\"time\" name=\"Ftimei\" style=\"color: black;\">\n                <br><br>\n                \n        FIM:\n        </b><font size=\"4\">\n                <input type=\"time\" name=\"Ftimef\" style=\"color: black;\">\n                <br><br>\n                <input type=\"submit\" value=\"GRAVAR\" style=\"width: 100px; height: 30px; color: black;\">\n        </form>\n</body>\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 340,
+        "y": 1300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ec4f5d40f93091b8",
+        "type": "ui_template",
+        "z": "8425d87446e84e39",
+        "group": "064a77c322a84d3f",
+        "name": "TXT TEMP",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "format": "\n\n<body background=\"Img/back.png\">\n\n   \n    <font face='arial' size='6'>\n        <center>\n\n            <font size=\"6\"><b> MUDAR <br> TEMPERATURA </b> </font>\n        </center>\n    \n</body>\n\n</html>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 390,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "63089730a271596e",
+        "type": "ui_slider",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "group": "064a77c322a84d3f",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "0",
+        "max": "9",
+        "step": 1,
+        "className": "bgcolor = \"WHITE\"",
+        "x": 330,
+        "y": 1440,
+        "wires": [
+            [
+                "659b3fae1c08beb3",
+                "6f14ce9655f92f01",
+                "1009f21c947bccfa",
+                "f25b1a742e8c82bd",
+                "2c6bcdba99deef96",
+                "d0401ba8f6ea2eef",
+                "721e98875392aa37",
+                "0e739fb9841a8d42",
+                "7f9c6a999f45e8dc",
+                "32f2875bd2716ae8"
+            ]
+        ]
+    },
+    {
+        "id": "23b03a2785ef545a",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "7",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 950,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "4140774004f25ef6",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "DESLIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 1520,
+        "wires": [
+            [
+                "23b03a2785ef545a",
+                "c5f8f4b2d4d39b22",
+                "0d393a2336302525",
+                "a821f335997f11b8"
+            ]
+        ]
+    },
+    {
+        "id": "c5f8f4b2d4d39b22",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "6",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "0d393a2336302525",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "a821f335997f11b8",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "4",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "4c8ed838be48f0e4",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "7",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "27cbf93073ab65dc",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "DESLIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 1840,
+        "wires": [
+            [
+                "4c8ed838be48f0e4",
+                "b3e241bd90233958",
+                "f8034def09a6b26e"
+            ]
+        ]
+    },
+    {
+        "id": "b3e241bd90233958",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "6",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "f8034def09a6b26e",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "81b8e88cd2f0ec9e",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "4",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "731be5f16102bc63",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "LIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 1680,
+        "wires": [
+            [
+                "81b8e88cd2f0ec9e"
+            ]
+        ]
+    },
+    {
+        "id": "659b3fae1c08beb3",
+        "type": "switch",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 490,
+        "y": 1760,
+        "wires": [
+            [
+                "731be5f16102bc63",
+                "27cbf93073ab65dc"
+            ]
+        ]
+    },
+    {
+        "id": "6f14ce9655f92f01",
+        "type": "switch",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 510,
+        "y": 1440,
+        "wires": [
+            [
+                "4140774004f25ef6"
+            ]
+        ]
+    },
+    {
+        "id": "c82c3727d604efe3",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "7",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 1960,
+        "wires": []
+    },
+    {
+        "id": "761ab2c7dae9ca6e",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "DESLIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 2140,
+        "wires": [
+            [
+                "c82c3727d604efe3",
+                "7d11e410b1b42e10",
+                "fb952e41278ff16c"
+            ]
+        ]
+    },
+    {
+        "id": "7d11e410b1b42e10",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "6",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 2020,
+        "wires": []
+    },
+    {
+        "id": "d37465689aa8c7bf",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "fb952e41278ff16c",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "4",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 2140,
+        "wires": []
+    },
+    {
+        "id": "a47944dc30978e53",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "LIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 1980,
+        "wires": [
+            [
+                "d37465689aa8c7bf"
+            ]
+        ]
+    },
+    {
+        "id": "1009f21c947bccfa",
+        "type": "switch",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 490,
+        "y": 2080,
+        "wires": [
+            [
+                "a47944dc30978e53",
+                "761ab2c7dae9ca6e"
+            ]
+        ]
+    },
+    {
+        "id": "3670e329a5707e87",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "7",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "510b46eb3208ba55",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "DESLIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 2460,
+        "wires": [
+            [
+                "3670e329a5707e87",
+                "111a51e9fa055cdb"
+            ]
+        ]
+    },
+    {
+        "id": "111a51e9fa055cdb",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "6",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 2340,
+        "wires": []
+    },
+    {
+        "id": "5f26eeb035df8198",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 2400,
+        "wires": []
+    },
+    {
+        "id": "3273664eb8bbed64",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "4",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 930,
+        "y": 2460,
+        "wires": []
+    },
+    {
+        "id": "d2443d3d81e56297",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "LIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 2300,
+        "wires": [
+            [
+                "5f26eeb035df8198",
+                "3273664eb8bbed64"
+            ]
+        ]
+    },
+    {
+        "id": "f25b1a742e8c82bd",
+        "type": "switch",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 490,
+        "y": 2400,
+        "wires": [
+            [
+                "d2443d3d81e56297",
+                "510b46eb3208ba55"
+            ]
+        ]
+    },
+    {
+        "id": "614b2b2d47011cc8",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "7",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 2580,
+        "wires": []
+    },
+    {
+        "id": "fb357e7ab60acc9b",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "DESLIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 2760,
+        "wires": [
+            [
+                "614b2b2d47011cc8",
+                "884ad9c42719ed80",
+                "e32def467827bfc5"
+            ]
+        ]
+    },
+    {
+        "id": "d0263fc2e5dad707",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "6",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 2640,
+        "wires": []
+    },
+    {
+        "id": "e32def467827bfc5",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 2700,
+        "wires": []
+    },
+    {
+        "id": "884ad9c42719ed80",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "4",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 2760,
+        "wires": []
+    },
+    {
+        "id": "0590be0d9977c88a",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "LIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 2600,
+        "wires": [
+            [
+                "d0263fc2e5dad707"
+            ]
+        ]
+    },
+    {
+        "id": "2c6bcdba99deef96",
+        "type": "switch",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 2700,
+        "wires": [
+            [
+                "0590be0d9977c88a",
+                "fb357e7ab60acc9b"
+            ]
+        ]
+    },
+    {
+        "id": "c6f91da696d7f482",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "7",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 2880,
+        "wires": []
+    },
+    {
+        "id": "e5bbf141287baaf5",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "DESLIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 3060,
+        "wires": [
+            [
+                "c6f91da696d7f482",
+                "6656d3d87c41cb56"
+            ]
+        ]
+    },
+    {
+        "id": "0c3e33fe9a31234e",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "6",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 2940,
+        "wires": []
+    },
+    {
+        "id": "6656d3d87c41cb56",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3000,
+        "wires": []
+    },
+    {
+        "id": "21754d531bbc5956",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "4",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3060,
+        "wires": []
+    },
+    {
+        "id": "9f0f484933b1d82f",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "LIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 2900,
+        "wires": [
+            [
+                "0c3e33fe9a31234e",
+                "21754d531bbc5956"
+            ]
+        ]
+    },
+    {
+        "id": "d0401ba8f6ea2eef",
+        "type": "switch",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "5",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 3000,
+        "wires": [
+            [
+                "9f0f484933b1d82f",
+                "e5bbf141287baaf5"
+            ]
+        ]
+    },
+    {
+        "id": "79370b97776ba61a",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "7",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3160,
+        "wires": []
+    },
+    {
+        "id": "051b007c56497405",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "DESLIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 3340,
+        "wires": [
+            [
+                "79370b97776ba61a",
+                "f7ef6d41c70eea01"
+            ]
+        ]
+    },
+    {
+        "id": "e1f1dfae3ca0b400",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "6",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3220,
+        "wires": []
+    },
+    {
+        "id": "de754b8915bc094f",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3280,
+        "wires": []
+    },
+    {
+        "id": "f7ef6d41c70eea01",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "4",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3340,
+        "wires": []
+    },
+    {
+        "id": "9afdfed2b758291c",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "LIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 3180,
+        "wires": [
+            [
+                "e1f1dfae3ca0b400",
+                "de754b8915bc094f"
+            ]
+        ]
+    },
+    {
+        "id": "721e98875392aa37",
+        "type": "switch",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "6",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 3280,
+        "wires": [
+            [
+                "9afdfed2b758291c",
+                "051b007c56497405"
+            ]
+        ]
+    },
+    {
+        "id": "768fd3cee5e00b0c",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "7",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3460,
+        "wires": []
+    },
+    {
+        "id": "2da4dafc01b3c9d1",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "DESLIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 3640,
+        "wires": [
+            [
+                "768fd3cee5e00b0c"
+            ]
+        ]
+    },
+    {
+        "id": "035e760bbb4d901b",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "6",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3520,
+        "wires": []
+    },
+    {
+        "id": "782a27c850d8b6c0",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3580,
+        "wires": []
+    },
+    {
+        "id": "57252ec4e64e7ef7",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "4",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3640,
+        "wires": []
+    },
+    {
+        "id": "3ccb289e04241230",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "LIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 3480,
+        "wires": [
+            [
+                "035e760bbb4d901b",
+                "782a27c850d8b6c0",
+                "57252ec4e64e7ef7"
+            ]
+        ]
+    },
+    {
+        "id": "0e739fb9841a8d42",
+        "type": "switch",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "7",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 3580,
+        "wires": [
+            [
+                "3ccb289e04241230",
+                "2da4dafc01b3c9d1"
+            ]
+        ]
+    },
+    {
+        "id": "267fe784e46ebdce",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "7",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3760,
+        "wires": []
+    },
+    {
+        "id": "12622b9372990514",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "DESLIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 3940,
+        "wires": [
+            [
+                "7dfd09c2d1c585b6",
+                "9a4abad326ac6a59",
+                "6c043165d47229dd"
+            ]
+        ]
+    },
+    {
+        "id": "6c043165d47229dd",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "6",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3820,
+        "wires": []
+    },
+    {
+        "id": "9a4abad326ac6a59",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3880,
+        "wires": []
+    },
+    {
+        "id": "7dfd09c2d1c585b6",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "4",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 910,
+        "y": 3940,
+        "wires": []
+    },
+    {
+        "id": "df0bbfe0956ec283",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "LIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 3780,
+        "wires": [
+            [
+                "267fe784e46ebdce"
+            ]
+        ]
+    },
+    {
+        "id": "7f9c6a999f45e8dc",
+        "type": "switch",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "8",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 3880,
+        "wires": [
+            [
+                "df0bbfe0956ec283",
+                "12622b9372990514"
+            ]
+        ]
+    },
+    {
+        "id": "d41a51f89134d563",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "7",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 920,
+        "y": 4060,
+        "wires": []
+    },
+    {
+        "id": "43065bdca014ef72",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "DESLIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 4240,
+        "wires": [
+            [
+                "da70d53ffeda6a61",
+                "7903d7775667cfcc"
+            ]
+        ]
+    },
+    {
+        "id": "da70d53ffeda6a61",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "6",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 920,
+        "y": 4120,
+        "wires": []
+    },
+    {
+        "id": "7903d7775667cfcc",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "5",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 920,
+        "y": 4180,
+        "wires": []
+    },
+    {
+        "id": "0967edf5a0020dab",
+        "type": "arduino out",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "pin": "4",
+        "state": "OUTPUT",
+        "arduino": "6a7da91bf81a4334",
+        "x": 920,
+        "y": 4240,
+        "wires": []
+    },
+    {
+        "id": "1a34b02128be22bd",
+        "type": "change",
+        "z": "8425d87446e84e39",
+        "name": "LIGADO",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 4080,
+        "wires": [
+            [
+                "0967edf5a0020dab",
+                "d41a51f89134d563"
+            ]
+        ]
+    },
+    {
+        "id": "32f2875bd2716ae8",
+        "type": "switch",
+        "z": "8425d87446e84e39",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "9",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 500,
+        "y": 4180,
+        "wires": [
+            [
+                "1a34b02128be22bd",
+                "43065bdca014ef72"
+            ]
+        ]
+    },
+    {
+        "id": "064a77c322a84d3f",
+        "type": "ui_group",
+        "name": "AR-CONDICIONADO",
+        "tab": "07e71ff037377889",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6a7da91bf81a4334",
+        "type": "arduino-board",
+        "device": "COM17"
+    },
+    {
+        "id": "07e71ff037377889",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
